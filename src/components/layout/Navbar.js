@@ -1,19 +1,38 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import SignedInLinks from './SignedInLinks'
+import SignedOutLinks from './SignedOutLinks'
+import './navbar.css'
 
-const Navbar = () => {
-  return(
-    <nav className="nav-wrapper red darken-3">
-      <div className="container">
-        <Link to="/" className="brand-logo left">React-redux-Firebase</Link>
-        <ul className="right">
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/about">About</Link></li>
-          <li><Link to="/contact">Contact</Link></li>
-        </ul>
-      </div>
-    </nav>
-  )
+class Navbar extends Component {
+  handleClick = (e) => {
+    e.preventDefault()
+    const burger = document.querySelector('.burger')
+    const nav = document.querySelector('nav')
+
+    if(burger.classList.contains('active')) {
+      burger.classList.remove('active')
+      nav.classList.remove('active')
+    } else {
+      burger.classList.add('active')
+      nav.classList.add('active')
+    }
+  }
+
+  render() {
+    return(
+      <header>
+        <div className="logo"><a href="#">Logo</a></div>
+        <nav>
+          <ul>
+            <SignedInLinks />
+            <SignedOutLinks />
+          </ul>
+        </nav>
+        <div className="burger" onClick={this.handleClick}><span></span></div>
+      </header>
+    )
+  }
 }
 
 export default Navbar
