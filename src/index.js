@@ -5,11 +5,24 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
 // Redux
-import { createStore } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 import rootReducer from './redux/reducers/rootReducer'
+import thunk from 'redux-thunk'
 
-const store = createStore(rootReducer)
+// Firebase
+import { reduxFirestore, getFirestore } from 'redux-firestore'
+import { reactReduxFirebase, getFirebase } from 'react-redux-firebase'
+import firebaseConfig from './private/firebaseConfig'
+
+
+const store = createStore(rootReducer,
+  compose(
+    applyMiddleware(thunk.withExtraArgument({getFirebase, getFirestore})),
+    reactReduxFirebase(firebaseConfig), // redux binding for firebase
+    reduxFirestore(firebaseConfig) // redux bindings for firestore
+  )
+)
 
 ReactDOM.render(
   <Provider store={store}>

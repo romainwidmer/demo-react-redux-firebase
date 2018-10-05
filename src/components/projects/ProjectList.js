@@ -1,29 +1,16 @@
-import React, { Component } from 'react'
+import React from 'react'
 import ProjectSummary from './ProjectSummary'
-import { connect } from 'react-redux'
 
-
-class ProjectList extends Component {
-  render() {
-    const posts = this.props.posts.map(post => {
-      return (
-        <ProjectSummary post={post} key={post.id} />
-      )
-    })
-
-    return(
+const ProjectList = ({projects}) => {
+    return (
       <div className="project-list section">
-        {posts}
+        { projects && projects.map(project => {
+          return (
+            <ProjectSummary project={project} key={project.id} />
+          )
+        })}
       </div>
     )
-  }
 }
 
-
-const mapStateToProps = (state, ownProps) => {
-  return {
-    posts: state.posts
-  }
-}
-
-export default connect(mapStateToProps)(ProjectList)
+export default ProjectList

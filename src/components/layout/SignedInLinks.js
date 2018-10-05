@@ -1,13 +1,13 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
-const SignedInLinks = () => {
+const SignedInLinks = ({handleClickOnTab}) => {
   return (
     <div>
       <ul className="right">
-        <li><NavLink to='/'>New Project</NavLink></li>
+        <li><NavLink to='/create' onClick={handleClickOnTab}>New Project</NavLink></li>
         <li><NavLink to='/'>Log Out</NavLink></li>
-        <li><NavLink to='/' className="btn btn-floating pink lighten-1">NN</NavLink></li>
+        <li><NavLink to='/' className="btn btn-floating blue lighten-1">RW</NavLink></li>
       </ul>
     </div>
   )

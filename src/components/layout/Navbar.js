@@ -5,7 +5,7 @@ import SignedOutLinks from './SignedOutLinks'
 import './navbar.css'
 
 class Navbar extends Component {
-  handleClick = (e) => {
+  handleBurgerToggle = (e) => {
     e.preventDefault()
     const burger = document.querySelector('.burger')
     const nav = document.querySelector('nav')
@@ -19,17 +19,29 @@ class Navbar extends Component {
     }
   }
 
+  handleClickOnTab = (e) => {
+    const nav = document.querySelector('nav')
+    const burger = document.querySelector('.burger')
+
+    if(nav.classList.contains('active')) {
+      nav.classList.remove('active')
+      burger.classList.remove('active')
+    }
+  }
+
   render() {
     return(
       <header>
-        <div className="logo"><a href="#">Logo</a></div>
-        <nav>
-          <ul>
-            <SignedInLinks />
-            <SignedOutLinks />
-          </ul>
-        </nav>
-        <div className="burger" onClick={this.handleClick}><span></span></div>
+        <div className="container nav-wrapper">  
+          <div className="logo"><Link to="/">Demo React-Redux-Firebase</Link></div>
+          <nav>
+            <ul>
+              <SignedOutLinks />
+              <SignedInLinks handleClickOnTab={this.handleClickOnTab} />
+            </ul>
+          </nav>
+          <div className="burger" onClick={this.handleBurgerToggle}><span></span></div>
+        </div>
       </header>
     )
   }
