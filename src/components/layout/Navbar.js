@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import SignedInLinks from './SignedInLinks'
 import SignedOutLinks from './SignedOutLinks'
 import './navbar.css'
+import { connect } from 'react-redux'
+
 
 class Navbar extends Component {
   handleBurgerToggle = (e) => {
@@ -19,25 +21,18 @@ class Navbar extends Component {
     }
   }
 
-  handleClickOnTab = (e) => {
-    const nav = document.querySelector('nav')
-    const burger = document.querySelector('.burger')
-
-    if(nav.classList.contains('active')) {
-      nav.classList.remove('active')
-      burger.classList.remove('active')
-    }
-  }
-
   render() {
+    const { auth } = this.props
+    console.log(auth)
+    const links = auth.uid ? <SignedInLinks /> : <SignedOutLinks />
+
     return(
       <header>
         <div className="container nav-wrapper">  
           <div className="logo"><Link to="/">Demo React-Redux-Firebase</Link></div>
           <nav>
             <ul>
-              <SignedOutLinks />
-              <SignedInLinks handleClickOnTab={this.handleClickOnTab} />
+              {links}
             </ul>
           </nav>
           <div className="burger" onClick={this.handleBurgerToggle}><span></span></div>
@@ -47,4 +42,10 @@ class Navbar extends Component {
   }
 }
 
-export default Navbar
+const mapStateToProps = (state) => {
+  return {
+    auth: state.firebase.auth
+  }
+}
+
+export default connect(mapStateToProps, null)(Navbar)
