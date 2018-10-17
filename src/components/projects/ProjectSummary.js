@@ -1,5 +1,6 @@
 import React from 'react'
 import './project.css'
+import { Redirect } from 'react-router-dom'
 
 const ProjectSummary = ({project}) => {
   return(
