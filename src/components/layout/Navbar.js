@@ -23,7 +23,6 @@ class Navbar extends Component {
 
   render() {
     const { auth } = this.props
-    console.log(auth)
     const links = auth.uid ? <SignedInLinks /> : <SignedOutLinks />
 
     return(
@@ -43,6 +42,7 @@ class Navbar extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state)
   return {
     auth: state.firebase.auth
   }
